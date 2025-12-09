@@ -1,5 +1,7 @@
 import { useTranslate } from '@/hooks/useTranslate';
 import { AMAZON_LINKS } from '@shared/const';
+import { ImageGallery } from '@/components/ImageGallery';
+import { InstagramFeed } from '@/components/InstagramFeed';
 import { motion } from 'framer-motion';
 import { useParams } from 'wouter';
 import { ChevronRight, Star } from 'lucide-react';
@@ -24,6 +26,16 @@ const productData = {
     icon: '🌵',
     gradient: 'from-[#4A148C] to-[#00BCD4]',
     accentColor: 'text-[#4A148C]',
+    images: [
+      '/prickly-pear-1.jpg',
+      '/prickly-pear-2.jpg',
+      '/prickly-pear-3.jpg',
+      '/prickly-pear-4.jpg',
+      '/prickly-pear-5.jpg',
+      '/prickly-pear-6.jpg',
+      '/prickly-pear-7.jpg',
+      '/prickly-pear-8.jpg',
+    ],
   },
   'baobab-cacay': {
     name: 'Baobab & Cacay Blend',
@@ -44,6 +56,16 @@ const productData = {
     icon: '🌳',
     gradient: 'from-[#00BCD4] to-[#D7CCC8]',
     accentColor: 'text-[#00BCD4]',
+    images: [
+      '/baobab-cacay-1.jpg',
+      '/baobab-cacay-2.jpg',
+      '/baobab-cacay-3.jpg',
+      '/baobab-cacay-4.jpg',
+      '/baobab-cacay-5.jpg',
+      '/baobab-cacay-6.jpg',
+      '/baobab-cacay-7.jpg',
+      '/baobab-cacay-8.jpg',
+    ],
   },
 };
 
@@ -63,11 +85,11 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Product Hero */}
+      {/* Product Hero with Gallery */}
       <section className={`py-20 bg-gradient-to-br ${product.gradient}`}>
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center text-white"
+            className="text-center text-white mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -85,21 +107,37 @@ export default function ProductDetail() {
               <ChevronRight size={20} />
             </a>
           </motion.div>
+
+          {/* Gallery Grid */}
+          <motion.div
+            className="mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <ImageGallery images={product.images} productName={product.name} />
+          </motion.div>
         </div>
       </section>
 
-      {/* Description */}
+      {/* Description with Gallery */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
-            className="max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             <h2 className={`text-4xl font-bold ${product.accentColor} mb-6`}>About This Product</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">{product.description}</p>
+            <p className="text-lg text-gray-600 leading-relaxed mb-8">{product.description}</p>
+
+            {/* Secondary Gallery in Description */}
+            <div className="mt-12">
+              <h3 className={`text-2xl font-bold ${product.accentColor} mb-6`}>Product Gallery</h3>
+              <ImageGallery images={product.images} productName={product.name} />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -166,6 +204,23 @@ export default function ProductDetail() {
             <h2 className={`text-4xl font-bold ${product.accentColor} mb-6`}>Sensory Experience</h2>
             <p className="text-lg text-gray-600 leading-relaxed">{product.sensory}</p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Instagram Feed */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className={`text-4xl font-bold ${product.accentColor} mb-4`}>Follow Us on Instagram</h2>
+            <p className="text-gray-600 text-lg">@valianevalkyria</p>
+          </motion.div>
+          <InstagramFeed />
         </div>
       </section>
 

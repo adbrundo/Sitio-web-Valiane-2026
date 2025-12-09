@@ -146,3 +146,14 @@
 - Conversion goal: Drive traffic to Amazon product links
 - Brand colors: Deep Violet #4A148C, Turquoise #00BCD4, Sand Beige #D7CCC8
 - Typography: Playfair Display (titles), Inter/Lato (body)
+
+
+## Gallery Integration Features
+- [x] Create/generate product gallery images (8 per product)
+- [x] Upload images to S3 storage
+- [x] Update database schema with image URLs
+- [x] Integrate Instagram Feed Widget
+- [x] Create gallery component with lightbox
+- [x] Add gallery to product detail hero section
+- [x] Add gallery to product description section
+- [x] Test gallery responsiveness and lightbox functionality
