@@ -7,6 +7,8 @@ import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
+import Rituals from "@/pages/Rituals";
+import Science from "@/pages/Science";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -18,6 +20,8 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/products"} component={Products} />
       <Route path={"/product/:slug"} component={ProductDetail} />
+      <Route path={"/rituals"} component={Rituals} />
+      <Route path={"/science"} component={Science} />
       <Route path={"/about"} component={About} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
@@ -29,11 +33,11 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="dark">
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen bg-[#0A0015]">
               <Header />
               <main className="flex-1">
                 <Router />

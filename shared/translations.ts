@@ -14,6 +14,8 @@ export const translations = {
     nav: {
       home: 'Home',
       products: 'Products',
+      rituals: 'Rituals',
+      science: 'Science',
       about: 'About',
       contact: 'Contact',
       admin: 'Admin',
@@ -24,12 +26,14 @@ export const translations = {
       tagline: 'Glow Up to a Better New Life',
       subtitle: 'Premium botanical skincare oils for the discerning beauty enthusiast',
       cta: 'Discover Our Products',
+      scroll: 'Scroll to explore',
     },
     
     // Products
     products: {
       title: 'Our Collection',
       subtitle: 'Luxury botanical oils crafted with intention',
+      viewDetails: 'View Details',
       pricklyPear: {
         name: 'Enriched Prickly Pear Seed Oil',
         shortDesc: 'Lightweight, fast-absorbing facial oil for radiant skin',
@@ -65,9 +69,49 @@ export const translations = {
       },
     },
     
+    // Rituals
+    rituals: {
+      title: 'The Valianè Ritual',
+      subtitle: 'Transforming routine into intention',
+      morning: {
+        title: 'Morning Radiance',
+        description: 'Prepare your skin for the day with a protective, glowing barrier.',
+        steps: [
+          'Cleanse with lukewarm water',
+          'Apply 2 drops of Prickly Pear Seed Oil to damp skin',
+          'Follow with SPF and light makeup if desired',
+        ]
+      },
+      evening: {
+        title: 'Evening Restoration',
+        description: 'Deeply nourish and repair while you rest.',
+        steps: [
+          'Double cleanse to remove impurities',
+          'Apply 3-4 drops of Baobab & Cacay Blend',
+          'Use a Gua Sha tool for lymphatic drainage',
+        ]
+      }
+    },
+
+    // Science
+    science: {
+      title: 'The Science of Purity',
+      subtitle: 'Cold-pressed potency, scientifically backed',
+      ingredients: {
+        title: 'Key Actives',
+        pricklyPear: 'Rich in Vitamin E and Betalains, powerful antioxidants that protect against environmental stress.',
+        baobab: 'High in Omega 3, 6, and 9 fatty acids for deep cellular hydration.',
+        cacay: 'Contains 3x more natural Retinol than Rosehip oil, promoting cell turnover.',
+      },
+      process: {
+        title: 'Our Process',
+        description: 'We use cold-pressing techniques to ensure that no nutrient is lost to heat, preserving the biological integrity of every drop.',
+      }
+    },
+
     // About Brand
     about: {
-      title: 'About Valianė',
+      title: 'About Valianè',
       subtitle: 'Where Nature Meets Luxury',
       mission: 'Our mission is to deliver effortless, effective, and elegant skincare solutions to a discerning customer base.',
       tagline: 'Born from connection, inspired by purity, built with intention',
@@ -77,8 +121,8 @@ export const translations = {
         luxuryNatural: 'Luxury Natural: Refined aesthetics paired with authentic, nature-sourced ingredients',
         intention: 'Built with Intention: Every product is crafted to inspire a ritualistic, mindful approach to self-care',
       },
-      brandEssence: 'Valianė is a premium beauty brand specializing in multi-purpose skincare oils that balance natural purity and modern luxury. Our brand essence is defined by a harmonious blend of natural authenticity and refined luxury.',
-      story: 'Founded in 2024 under DuoTwins LLC, Valianė emerged from a vision of creating a "minimal luxury ritual born from nature." We believe that beauty should honor your natural glow rather than mask it, combining nutrient-rich botanicals with premium design standards.',
+      brandEssence: 'Valianè is a premium beauty brand specializing in multi-purpose skincare oils that balance natural purity and modern luxury. Our brand essence is defined by a harmonious blend of natural authenticity and refined luxury.',
+      story: 'Founded in 2024 under DuoTwins LLC, Valianè emerged from a vision of creating a "minimal luxury ritual born from nature." We believe that beauty should honor your natural glow rather than mask it, combining nutrient-rich botanicals with premium design standards.',
     },
     
     // Footer
@@ -121,6 +165,8 @@ export const translations = {
     nav: {
       home: 'Inicio',
       products: 'Productos',
+      rituals: 'Rituales',
+      science: 'Ciencia',
       about: 'Acerca de',
       contact: 'Contacto',
       admin: 'Admin',
@@ -131,12 +177,14 @@ export const translations = {
       tagline: 'Brilla Hacia Una Vida Mejor',
       subtitle: 'Aceites de cuidado de la piel botánicos premium para el entusiasta de la belleza exigente',
       cta: 'Descubre Nuestros Productos',
+      scroll: 'Desliza para explorar',
     },
     
     // Productos
     products: {
       title: 'Nuestra Colección',
       subtitle: 'Aceites botánicos de lujo elaborados con intención',
+      viewDetails: 'Ver Detalles',
       pricklyPear: {
         name: 'Aceite Enriquecido de Semilla de Tuna',
         shortDesc: 'Aceite facial ligero y de rápida absorción para una piel radiante',
@@ -163,7 +211,7 @@ export const translations = {
           'SOPORTE DE HIDRATACIÓN Y BARRERA: sella la humedad sin pesadez y promueve una textura suave y lujosa. El aceite de semilla de meadowfoam agrega una sensación aterciopelada y de rápida absorción. Se combina bien con ácido hialurónico; aplicar 2-3 gotas en piel ligeramente húmeda, luego hidratante o SPF. Diseñado para piel seca, madura, sensible y combinada.',
           'CUIDADO CAPILAR Y DEL CUERO CABELLUDO: usa 1-2 gotas en las puntas para combatir la sequedad, el encrespamiento y los pelos sueltos; agrega brillo sin acumulación. Como aceite del cuero cabelludo, masajea antes del lavado para nutrir y confortar; enjuaga bien. Funciona como suero capilar, aceite de acabado o mezcla con acondicionadores sin enjuague para cabello brillante y suave.',
           'FÓRMULA SUPER BELLEZA LIMPIA: vegana, no transgénica, libre de crueldad animal; elaborada sin fragancia añadida, alcohol, siliconas, aceite mineral, parabenos, ftalatos o sulfatos. Naturalmente perfumada por los aceites mismos, sutil y reconfortante para el uso diario.',
-          'VIDRIO AZUL UV + gotero de precisión: botella reciclable premium que bloquea los rayos UV ayuda a proteger los delicados aceites de plantas de la luz para preservar la frescura y potencia, apoyando la vida útil versus vidrio estándar. Diseñado para recargas o reutilización para ayudar a reducir residuos.',
+          'VIDRIO AZUL UV + gotero de precisión: la botella de vidrio reciclable premium que bloquea los rayos UV ayuda a proteger los aceites vegetales sensibles de la luz para preservar la frescura y potencia, apoyando la vida útil frente al vidrio estándar. Diseñado para recargas o reutilización para ayudar a reducir residuos.',
         ],
         ingredients: 'Aceite de Semilla de Adansonia Digitata (Baobab), Aceite de Semilla de Caryodendron Orinocense (Cacay)',
         usage: 'Para la cara: Aplicar 2-3 gotas en piel limpia, idealmente por la noche. Para el cabello: Frotar algunas gotas entre las palmas y deslizar sobre las puntas y largos. También puede usarse como aceite corporal nutritivo.',
@@ -171,10 +219,50 @@ export const translations = {
         shopButton: 'Comprar en Amazon',
       },
     },
+
+    // Rituales
+    rituals: {
+      title: 'El Ritual Valianè',
+      subtitle: 'Transformando la rutina en intención',
+      morning: {
+        title: 'Radiancia Matutina',
+        description: 'Prepara tu piel para el día con una barrera protectora y luminosa.',
+        steps: [
+          'Limpiar con agua tibia',
+          'Aplicar 2 gotas de Aceite de Semilla de Tuna en piel húmeda',
+          'Seguir con SPF y maquillaje ligero si se desea',
+        ]
+      },
+      evening: {
+        title: 'Restauración Nocturna',
+        description: 'Nutre profundamente y repara mientras descansas.',
+        steps: [
+          'Doble limpieza para eliminar impurezas',
+          'Aplicar 3-4 gotas de Mezcla de Baobab y Cacay',
+          'Usar una herramienta Gua Sha para drenaje linfático',
+        ]
+      }
+    },
+
+    // Ciencia
+    science: {
+      title: 'La Ciencia de la Pureza',
+      subtitle: 'Potencia prensada en frío, respaldada científicamente',
+      ingredients: {
+        title: 'Activos Clave',
+        pricklyPear: 'Rico en Vitamina E y Betalaínas, potentes antioxidantes que protegen contra el estrés ambiental.',
+        baobab: 'Alto contenido de ácidos grasos Omega 3, 6 y 9 para una hidratación celular profunda.',
+        cacay: 'Contiene 3 veces más Retinol natural que el aceite de Rosa Mosqueta, promoviendo la renovación celular.',
+      },
+      process: {
+        title: 'Nuestro Proceso',
+        description: 'Utilizamos técnicas de prensado en frío para asegurar que ningún nutriente se pierda por el calor, preservando la integridad biológica de cada gota.',
+      }
+    },
     
     // Acerca de la Marca
     about: {
-      title: 'Acerca de Valianė',
+      title: 'Acerca de Valianè',
       subtitle: 'Donde la Naturaleza se Encuentra con el Lujo',
       mission: 'Nuestra misión es ofrecer soluciones de cuidado de la piel sin esfuerzo, efectivas y elegantes a una base de clientes exigente.',
       tagline: 'Nacida de la conexión, inspirada por la pureza, construida con intención',
@@ -184,8 +272,8 @@ export const translations = {
         luxuryNatural: 'Lujo Natural: Estética refinada combinada con ingredientes auténticos y de origen natural',
         intention: 'Construida con Intención: Cada producto está elaborado para inspirar un enfoque ritual y consciente del autocuidado',
       },
-      brandEssence: 'Valianė es una marca de belleza premium especializada en aceites de cuidado de la piel multiusos que equilibran la pureza natural y el lujo moderno. La esencia de nuestra marca se define por una mezcla armoniosa de autenticidad natural y lujo refinado.',
-      story: 'Fundada en 2024 bajo DuoTwins LLC, Valianė surgió de una visión de crear un "ritual de lujo minimalista nacido de la naturaleza". Creemos que la belleza debe honrar tu brillo natural en lugar de ocultarlo, combinando botánicos ricos en nutrientes con estándares de diseño premium.',
+      brandEssence: 'Valianè es una marca de belleza premium especializada en aceites de cuidado de la piel multiusos que equilibran la pureza natural y el lujo moderno. La esencia de nuestra marca se define por una mezcla armoniosa de autenticidad natural y lujo refinado.',
+      story: 'Fundada en 2024 bajo DuoTwins LLC, Valianè surgió de una visión de crear un "ritual de lujo minimalista nacido de la naturaleza". Creemos que la belleza debe honrar tu brillo natural en lugar de ocultarlo, combinando botánicos ricos en nutrientes con estándares de diseño premium.',
     },
     
     // Pie de página

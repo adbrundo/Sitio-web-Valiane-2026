@@ -1,442 +1,317 @@
-import { useTranslate } from '@/hooks/useTranslate';
-import { AMAZON_LINKS } from '@shared/const';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslate } from '@/hooks/useTranslate';
 import { Link } from 'wouter';
-import { ChevronRight, Sparkles, Leaf, Heart } from 'lucide-react';
-import { useRef } from 'react';
+import { ArrowRight, Sparkles, ShieldCheck, Leaf, Droplets } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Home() {
   const { t } = useTranslate();
-  const heroRef = useRef(null);
+  const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: heroRef,
+    target: containerRef,
     offset: ["start start", "end start"]
   });
-  
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: (e.clientY / window.innerHeight) * 2 - 1,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const products = [
+    {
+      id: 'prickly-pear',
+      name: t('products.pricklyPear.name'),
+      tagline: t('products.pricklyPear.tagline'),
+      image: '/images/brand/prickly_pear_ad_1.png',
+      color: '#4A148C',
+      link: '/products'
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
-
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
+    {
+      id: 'baobab-cacay',
+      name: t('products.baobabCacay.name'),
+      tagline: t('products.baobabCacay.tagline'),
+      image: '/images/brand/baobab_ad_1.png',
+      color: '#0047AB',
+      link: '/products'
     }
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A0015] via-[#1a0a2e] to-[#0f0520]">
-      {/* Hero Section - Ultra Modern with Parallax */}
-      <section ref={heroRef} className="relative overflow-hidden min-h-screen flex items-center">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Gradient Orbs */}
-          <motion.div 
-            className="absolute top-20 -right-20 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#4A148C]/30 via-[#00BCD4]/20 to-transparent blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+    <div ref={containerRef} className="relative bg-[#0A0015] overflow-hidden">
+      {/* Interactive Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <motion.div 
+          className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#4A148C]/10 blur-[120px] rounded-full"
+          animate={{
+            x: mousePosition.x * 50,
+            y: mousePosition.y * 50,
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#00BCD4]/10 blur-[120px] rounded-full"
+          animate={{
+            x: mousePosition.x * -50,
+            y: mousePosition.y * -50,
+          }}
+        />
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/brand/brand_hero.jpg" 
+            alt="Valianè Collection" 
+            className="w-full h-full object-cover opacity-30"
           />
-          <motion.div 
-            className="absolute -bottom-40 -left-40 w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-[#00BCD4]/30 via-[#4A148C]/20 to-transparent blur-3xl"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-          />
-          
-          {/* Floating Particles */}
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-[#00BCD4]/40 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -100, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 4,
-                repeat: Infinity,
-                delay: Math.random() * 3,
-              }}
-            />
-          ))}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0015] via-[#0A0015]/80 to-[#0A0015]" />
         </div>
 
         <motion.div 
-          className="container mx-auto px-4 relative z-10"
-          style={{ opacity, scale }}
+          style={{ opacity, scale, y: y1 }}
+          className="container mx-auto text-center z-10"
         >
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8"
           >
-            {/* Left Content */}
-            <motion.div className="space-y-10" variants={itemVariants}>
-              <div className="space-y-6">
-                <motion.div
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#4A148C]/20 to-[#00BCD4]/20 border border-[#00BCD4]/30 rounded-full backdrop-blur-sm"
-                  variants={itemVariants}
-                >
-                  <Sparkles className="w-4 h-4 text-[#00BCD4]" />
-                  <span className="text-sm text-[#00BCD4] font-medium">Luxury Natural Skincare</span>
-                </motion.div>
+            <Sparkles className="w-4 h-4 text-[#00BCD4]" />
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#D7CCC8]">The Future of Botanical Luxury</span>
+          </motion.div>
 
-                <motion.h1
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight"
-                  variants={itemVariants}
-                >
-                  <span className="bg-gradient-to-r from-[#D7CCC8] via-white to-[#00BCD4] bg-clip-text text-transparent">
-                    {t('hero.tagline')}
-                  </span>
-                </motion.h1>
-                
-                <motion.p
-                  className="text-xl md:text-2xl text-[#D7CCC8]/80 leading-relaxed max-w-xl"
-                  variants={itemVariants}
-                >
-                  {t('hero.subtitle')}
-                </motion.p>
-              </div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8 leading-[0.9]"
+          >
+            <span className="block text-white">Redefining</span>
+            <span className="block bg-gradient-to-r from-[#D7CCC8] via-white to-[#00BCD4] bg-clip-text text-transparent">
+              Pure Radiance
+            </span>
+          </motion.h1>
 
-              {/* CTA Buttons */}
-              <motion.div className="flex flex-col sm:flex-row gap-4" variants={itemVariants}>
-                <Link href="/products">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-[#4A148C] via-[#6A1B9A] to-[#00BCD4] text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-[#00BCD4]/50 hover:scale-105">
-                    <span className="relative z-10 flex items-center gap-2">
-                      {t('hero.cta')}
-                      <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#00BCD4] to-[#4A148C] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </button>
-                </Link>
-                
-                <Link href="/about">
-                  <button className="px-8 py-4 border-2 border-[#00BCD4]/50 text-[#00BCD4] font-semibold rounded-full hover:bg-[#00BCD4]/10 transition-all duration-300 backdrop-blur-sm">
-                    Learn More
-                  </button>
-                </Link>
-              </motion.div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-xl md:text-2xl text-[#D7CCC8]/60 max-w-3xl mx-auto mb-12 font-light leading-relaxed"
+          >
+            {t('hero.subtitle')}
+          </motion.p>
 
-              {/* Trust Badges */}
-              <motion.div 
-                className="flex flex-wrap gap-6 pt-4"
-                variants={itemVariants}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          >
+            <Link href="/products">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-5 rounded-full bg-white text-black font-bold text-lg hover:bg-[#00BCD4] hover:text-white transition-all duration-500 shadow-2xl shadow-white/10"
               >
-                {[
-                  { icon: Leaf, text: "100% Natural" },
-                  { icon: Heart, text: "Cruelty Free" },
-                  { icon: Sparkles, text: "Vegan" }
-                ].map((badge, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-[#D7CCC8]/60">
-                    <badge.icon className="w-5 h-5 text-[#00BCD4]" />
-                    <span className="text-sm font-medium">{badge.text}</span>
-                  </div>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Right Visual - Product Showcase */}
-            <motion.div
-              className="relative h-[600px] hidden lg:block"
-              variants={floatingVariants}
-              animate="animate"
-            >
-              {/* Glowing Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A148C]/40 via-[#00BCD4]/30 to-transparent rounded-3xl blur-2xl" />
-              
-              {/* Product Images */}
-              <div className="relative h-full flex items-center justify-center">
-                <motion.div
-                  className="absolute w-80 h-80 rounded-2xl overflow-hidden shadow-2xl shadow-[#4A148C]/50 transform -rotate-6"
-                  whileHover={{ rotate: 0, scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img 
-                    src="/images/valiane_prickly_pear_product.webp" 
-                    alt="Prickly Pear Oil"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#4A148C]/60 to-transparent" />
-                </motion.div>
-                
-                <motion.div
-                  className="absolute w-72 h-72 rounded-2xl overflow-hidden shadow-2xl shadow-[#00BCD4]/50 transform rotate-6 translate-x-32 translate-y-20"
-                  whileHover={{ rotate: 0, scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img 
-                    src="/images/valiane_baobab_cacay_product.webp" 
-                    alt="Baobab & Cacay Oil"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#00BCD4]/60 to-transparent" />
-                </motion.div>
-              </div>
-            </motion.div>
+                {t('hero.cta')}
+              </motion.button>
+            </Link>
+            <Link href="/rituals">
+              <motion.button
+                whileHover={{ x: 5 }}
+                className="flex items-center gap-2 text-white font-bold text-lg group"
+              >
+                Explore Rituals <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+            </Link>
           </motion.div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 border-[#00BCD4]/50 rounded-full flex items-start justify-center p-2">
-            <motion.div
-              className="w-1.5 h-1.5 bg-[#00BCD4] rounded-full"
-              animate={{ y: [0, 16, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </div>
         </motion.div>
       </section>
 
-      {/* Featured Products Section - Enhanced */}
-      <section className="py-32 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f0520] via-[#1a0a2e] to-[#0f0520]" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            className="text-center mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="inline-block mb-4"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <span className="text-[#00BCD4] text-sm font-semibold tracking-wider uppercase">Our Collection</span>
-            </motion.div>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-white via-[#D7CCC8] to-[#00BCD4] bg-clip-text text-transparent">
-                {t('products.title')}
+      {/* Featured Collection - Horizontal Scroll Style */}
+      <section className="py-40 px-6 relative z-10">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Crafted with <br />
+                <span className="text-[#00BCD4]">Uncompromising</span> Purity
+              </h2>
+              <p className="text-xl text-[#D7CCC8]/60">
+                Each drop is a testament to our commitment to quality, sourcing the finest botanicals from around the globe.
+              </p>
+            </div>
+            <Link href="/products">
+              <span className="text-[#D7CCC8] hover:text-white transition-colors font-bold tracking-widest uppercase text-sm flex items-center gap-2 cursor-pointer">
+                View Full Collection <ArrowRight className="w-4 h-4" />
               </span>
-            </h2>
-            <p className="text-xl text-[#D7CCC8]/70 max-w-2xl mx-auto">
-              {t('products.subtitle')}
-            </p>
-          </motion.div>
-
-          {/* Product Cards - Ultra Modern Design */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-            {/* Prickly Pear Card */}
-            <motion.div
-              className="group relative"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0f0520] rounded-3xl overflow-hidden border border-[#4A148C]/30 hover:border-[#4A148C]/60 transition-all duration-500 hover:shadow-2xl hover:shadow-[#4A148C]/30">
-                {/* Product Image */}
-                <div className="relative h-96 overflow-hidden">
-                  <motion.img
-                    src="/images/valiane_prickly_pear_product.webp"
-                    alt="Prickly Pear Seed Oil"
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a2e] via-[#4A148C]/20 to-transparent" />
-                  
-                  {/* Floating Badge */}
-                  <div className="absolute top-6 right-6 px-4 py-2 bg-[#4A148C]/80 backdrop-blur-md rounded-full border border-[#00BCD4]/30">
-                    <span className="text-[#00BCD4] text-sm font-semibold">Bestseller</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 space-y-6">
-                  <div>
-                    <h3 className="text-3xl font-bold text-white mb-3">
-                      {t('products.pricklyPear.name')}
-                    </h3>
-                    <p className="text-lg text-[#00BCD4] font-semibold mb-4">
-                      {t('products.pricklyPear.tagline')}
-                    </p>
-                    <p className="text-[#D7CCC8]/70 leading-relaxed">
-                      {t('products.pricklyPear.shortDesc')}
-                    </p>
-                  </div>
-
-                  <a
-                    href={AMAZON_LINKS.pricklyPear}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A148C] to-[#6A1B9A] text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#4A148C]/50 transition-all duration-300 group-hover:translate-x-2"
-                  >
-                    {t('products.pricklyPear.shopButton')}
-                    <ChevronRight size={18} />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Baobab & Cacay Card */}
-            <motion.div
-              className="group relative"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0f0520] rounded-3xl overflow-hidden border border-[#00BCD4]/30 hover:border-[#00BCD4]/60 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BCD4]/30">
-                {/* Product Image */}
-                <div className="relative h-96 overflow-hidden">
-                  <motion.img
-                    src="/images/valiane_baobab_cacay_product.webp"
-                    alt="Baobab & Cacay Oil"
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a2e] via-[#00BCD4]/20 to-transparent" />
-                  
-                  {/* Floating Badge */}
-                  <div className="absolute top-6 right-6 px-4 py-2 bg-[#00BCD4]/80 backdrop-blur-md rounded-full border border-[#4A148C]/30">
-                    <span className="text-white text-sm font-semibold">New</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 space-y-6">
-                  <div>
-                    <h3 className="text-3xl font-bold text-white mb-3">
-                      {t('products.baobabCacay.name')}
-                    </h3>
-                    <p className="text-lg text-[#00BCD4] font-semibold mb-4">
-                      {t('products.baobabCacay.tagline')}
-                    </p>
-                    <p className="text-[#D7CCC8]/70 leading-relaxed">
-                      {t('products.baobabCacay.shortDesc')}
-                    </p>
-                  </div>
-
-                  <a
-                    href={AMAZON_LINKS.baobabCacay}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00BCD4] to-[#00ACC1] text-white font-semibold rounded-full hover:shadow-xl hover:shadow-[#00BCD4]/50 transition-all duration-300 group-hover:translate-x-2"
-                  >
-                    {t('products.baobabCacay.shopButton')}
-                    <ChevronRight size={18} />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+            </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Brand Values Section - Redesigned */}
-      <section className="py-32 relative">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-white to-[#00BCD4] bg-clip-text text-transparent">
-                {t('about.title')}
-              </span>
-            </h2>
-            <p className="text-xl text-[#D7CCC8]/70 max-w-3xl mx-auto">
-              {t('about.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              { 
-                icon: '✨', 
-                title: 'Clean Beauty', 
-                desc: t('about.values.cleanBeauty'),
-                gradient: 'from-[#4A148C]/20 to-[#6A1B9A]/20',
-                border: 'border-[#4A148C]/30'
-              },
-              { 
-                icon: '👑', 
-                title: 'Luxury Natural', 
-                desc: t('about.values.luxuryNatural'),
-                gradient: 'from-[#00BCD4]/20 to-[#00ACC1]/20',
-                border: 'border-[#00BCD4]/30'
-              },
-              { 
-                icon: '🎯', 
-                title: 'Built with Intention', 
-                desc: t('about.values.intention'),
-                gradient: 'from-[#D7CCC8]/20 to-[#BCAAA4]/20',
-                border: 'border-[#D7CCC8]/30'
-              },
-            ].map((value, idx) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {products.map((product, idx) => (
               <motion.div
-                key={idx}
-                className={`relative p-8 rounded-2xl bg-gradient-to-br ${value.gradient} border ${value.border} backdrop-blur-sm hover:scale-105 transition-all duration-300`}
-                initial={{ opacity: 0, y: 30 }}
+                key={product.id}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10 }}
+                transition={{ duration: 0.8, delay: idx * 0.2 }}
+                className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-white/5 border border-white/10"
               >
-                <div className="text-6xl mb-6">{value.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
-                <p className="text-[#D7CCC8]/70 leading-relaxed">{value.desc}</p>
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute bottom-0 left-0 p-12 w-full">
+                  <p className="text-[#00BCD4] font-bold tracking-widest uppercase text-xs mb-4">{product.tagline}</p>
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">{product.name}</h3>
+                  <Link href={product.link}>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-8 py-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all"
+                    >
+                      Explore Product
+                    </motion.button>
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Brand Values - Minimalist & Professional */}
+      <section className="py-40 bg-white/5 relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+            {[
+              {
+                icon: <Leaf className="w-10 h-10 text-[#00BCD4]" />,
+                title: "100% Botanical",
+                desc: "Pure, cold-pressed oils sourced from sustainable farms, preserving every vital nutrient."
+              },
+              {
+                icon: <ShieldCheck className="w-10 h-10 text-[#4A148C]" />,
+                title: "Clean Excellence",
+                desc: "Free from synthetics, parabens, and fillers. Only what your skin truly needs."
+              },
+              {
+                icon: <Droplets className="w-10 h-10 text-[#D7CCC8]" />,
+                title: "Intentional Rituals",
+                desc: "Designed to transform your daily routine into a moment of mindful self-care."
+              }
+            ].map((value, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="space-y-6"
+              >
+                <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center border border-white/10">
+                  {value.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white">{value.title}</h3>
+                <p className="text-lg text-[#D7CCC8]/60 leading-relaxed">
+                  {value.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Inmersive Gallery / Carousel Section */}
+      <section className="py-40 px-6 overflow-hidden relative z-10">
+        <div className="container mx-auto mb-20">
+          <h2 className="text-4xl md:text-6xl font-bold text-white text-center">Visual Storytelling</h2>
+        </div>
+        
+        <div className="flex gap-8 animate-scroll">
+          {[
+            '/images/brand/prickly_pear_ad_2.jpg',
+            '/images/brand/baobab_ad_2.png',
+            '/images/brand/prickly_pear_ad_4.png',
+            '/images/brand/baobab_ad_3.png',
+            '/images/brand/prickly_pear_ad_5.png',
+            '/images/brand/prickly_pear_ad_3.png',
+            '/images/brand/prickly_pear_ad_2.jpg',
+            '/images/brand/baobab_ad_2.png',
+            '/images/brand/prickly_pear_ad_4.png',
+            '/images/brand/baobab_ad_3.png',
+            '/images/brand/prickly_pear_ad_5.png',
+            '/images/brand/prickly_pear_ad_3.png',
+          ].map((img, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ y: -20 }}
+              className="flex-shrink-0 w-[300px] md:w-[450px] aspect-[3/4] rounded-[2rem] overflow-hidden border border-white/10"
+            >
+              <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-40 px-6 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="container mx-auto max-w-6xl p-20 rounded-[4rem] bg-gradient-to-br from-[#4A148C] to-[#00BCD4] relative overflow-hidden text-center"
+        >
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="relative z-10">
+            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8">Ready to Glow?</h2>
+            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto">
+              Join thousands of others who have transformed their skin with Valianè.
+            </p>
+            <Link href="/products">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-12 py-6 rounded-full bg-white text-black font-bold text-xl shadow-2xl"
+              >
+                Shop the Collection
+              </motion.button>
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+
+      <style>{`
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-450px * 6 - 2rem * 6)); }
+        }
+        .animate-scroll {
+          display: flex;
+          width: calc(450px * 12 + 2rem * 12);
+          animation: scroll 80s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 }
